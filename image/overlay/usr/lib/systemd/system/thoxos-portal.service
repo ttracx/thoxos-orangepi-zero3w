@@ -1,0 +1,13 @@
+# Copyright 2026 THOX.ai LLC
+[Unit]
+Description=ThoxOS portal stub
+After=thoxos-firstboot.service
+
+[Service]
+Type=simple
+ExecStart=/usr/lib/thoxos/portal.sh
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

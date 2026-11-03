@@ -1,0 +1,30 @@
+sku,line,part,qty,function,required
+thoxmini,10,Orange Pi Zero 3W 8 GB LPDDR5,1,preferred compute module,yes
+thoxmini,11,Orange Pi Zero 3W 4 GB LPDDR5,1,floor compute module alternate not the preferred buy,no
+thoxmini,12,Orange Pi Zero 3W 1 GB LPDDR4/4X,0,rejected SKU do not buy,no
+thoxclip,10,Orange Pi Zero 3W 4 GB LPDDR5,1,preferred compute module,yes
+thoxclip,11,Orange Pi Zero 3W 2 GB LPDDR5,1,floor compute module alternate not the preferred buy,no
+thoxclip,12,Orange Pi Zero 3W 1 GB LPDDR4/4X,0,rejected SKU do not buy,no
+thoxmini,20,ESP32-C6 module,1,ThoxRoute coprocessor Wi-Fi 6 / BLE 5 / 802.15.4 must expose EN download strap and host UART,yes
+thoxmini,21,IPEX pigtail,1,route module IPEX to enclosure wall,yes
+thoxclip,21,IPEX pigtail,1,module Wi-Fi 6 and BT 5.4 clip-link antenna,yes
+thoxmini,30,INA219,1,MagLink current monitor I2C 7-bit 0x40,yes
+thoxmini,31,24C02 EEPROM,1,MagLink ID EEPROM I2C 7-bit 0x50 256 bytes,yes
+thoxmini,32,I2C pull-up,2,MagLink SCL and SDA to 3.3 V value not frozen,yes
+thoxmini,40,N52 magnet,TBD,MagStack array polarity opposes the phone-side stack,yes
+thoxclip,40,clip magnet,TBD,smaller clip polarity opposes the phone-side stack,yes
+thoxmini,50,USB-C power cable 5V/3A,1,boot power into module power Type-C,yes
+thoxclip,50,USB-C power cable 5V/3A,1,boot power into module power Type-C,yes
+thoxclip,51,USB-C data cable,1,docked gadget ACM and RNDIS bench cable,yes
+thoxmini,60,microSD up to 128 GB,1,boot media,yes
+thoxclip,60,microSD up to 128 GB,1,boot media,yes
+thoxmini,70,2-pin fan,1,populate module fan header before sustained NPU,no
+thoxclip,70,2-pin fan,1,optional module fan not a power-policy fuse,no
+thoxmini,80,eMMC 8/16/32/64/128 GB,0,optional default unstuffed not a boot device,no
+thoxclip,80,eMMC 8/16/32/64/128 GB,0,optional default unstuffed not a boot device,no
+thoxmini,81,UFS 32/64/128,0,optional default unstuffed not a boot device,no
+thoxclip,81,UFS 32/64/128,0,optional default unstuffed not a boot device,no
+thoxmini,90,Qi coil,0,mechanical power study not a boot source,no
+thoxmini,91,MIPI-DSI panel,0,optional not driven in 1.0.0,no
+thoxmini,92,PCIe Gen3 x1 device,0,FPC unpopulated,no
+thoxclip,92,PCIe Gen3 x1 device,0,FPC unpopulated,no

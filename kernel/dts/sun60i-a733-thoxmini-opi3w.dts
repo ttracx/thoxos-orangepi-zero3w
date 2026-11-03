@@ -1,0 +1,47 @@
+// SPDX-License-Identifier: Apache-2.0
+/*
+ * Copyright 2026 THOX.ai LLC
+ *
+ * ThoxMini (MagMesh node) on Orange Pi Zero 3W / Allwinner A733.
+ * Include is by basename. This file is not a bootable dtb until it
+ * sits next to the vendor board dts. See dts/README.md.
+ *
+ * Only model, compatible, and the carrier node are set here.
+ * &npu and &rfkill stay as the vendor dts left them.
+ */
+
+#include "sun60i-a733-orangepi-zero3w.dts"
+
+/ {
+	model = "THOX ThoxMini (Orange Pi Zero 3W)";
+	compatible = "thox,thoxmini-opi3w", "xunlong,orangepi-zero3w", "allwinner,sun60iw2p1";
+
+	/*
+	 * Carrier description. Not a simple-bus, not an MMIO node,
+	 * no gpio-hog, no pinctrl, no <&pio N>.
+	 *
+	 * esp32-reset-gpio and esp32-boot-gpio are not properties.
+	 * Those lines are assigned in hardware/pin-contract.json.
+	 */
+	thox-carrier {
+		compatible = "thox,carrier-thoxmini";
+
+		esp32-uart {
+			/* ESP32-C6 ThoxRoute */
+			thox,logical-bus = "UART-carrier-1";
+			thox,link = "115200 8N1";
+		};
+
+		maglink-i2c {
+			/* ID EEPROM 0x50, INA219 0x40 */
+			thox,logical-bus = "I2C-carrier";
+			thox,eeprom = "0x50";
+			thox,ina219 = "0x40";
+		};
+
+		presence-gpio {
+			/* MagStack present. Line is in pin-contract.json. */
+			thox,signal = "MagStack-present";
+		};
+	};
+};

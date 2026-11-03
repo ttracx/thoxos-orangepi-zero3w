@@ -1,0 +1,16 @@
+etc/thoxos-release
+etc/thoxos/sku.env
+usr/lib/systemd/system/thoxos-firstboot.service
+usr/lib/systemd/system/thoxos-portal.service
+usr/lib/systemd/system/thoxos-health.service
+usr/lib/systemd/system/thoxos-carrier.service
+usr/lib/systemd/system/thoxos-mesh.service
+usr/lib/systemd/system/thoxos-gadget.service
+usr/lib/systemd/system/thoxos-npu-probe.service
+usr/lib/thoxos/firstboot.sh
+usr/lib/thoxos/portal.sh
+usr/lib/thoxos/health.sh
+usr/lib/thoxos/carrier.sh
+usr/lib/thoxos/mesh.sh
+usr/lib/thoxos/gadget.sh
+usr/lib/thoxos/npu-probe

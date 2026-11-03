@@ -1,0 +1,20 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 THOX.ai LLC
+#
+# Short fragment. The rest of the defconfig is the vendor Orange Pi Zero 3W /
+# sun60iw2 defconfig: configs/sun60iw2p1_t736_defconfig on
+# https://github.com/orangepi-xunlong/u-boot-orangepi branch v2018.05-sun60iw2
+# (orangepi-build BOOTCONFIG for orangepizero3w). Do not replace that file.
+# This tree does not build a new SPL or boot0.
+#
+# Expected Linux DTB name: sun60i-a733-orangepi-zero3w
+# CONFIG_DEFAULT_DEVICE_TREE is intentionally not set here. In the vendor
+# defconfig it is "sun60iw2p1-soc-system", which is U-Boot's control DT,
+# not the kernel board DTB.
+#
+# CONFIG_PREBOOT is a U-Boot command string. ${thox_image_id} expands from
+# the merged environment (env/thoxos.env.txt) at run time, not from Kconfig.
+
+CONFIG_BOOTDELAY=1
+CONFIG_USE_PREBOOT=y
+CONFIG_PREBOOT="echo THOXOS ${thox_image_id}"

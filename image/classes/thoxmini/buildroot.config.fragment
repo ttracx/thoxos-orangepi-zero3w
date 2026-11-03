@@ -1,0 +1,4 @@
+# ThoxOS Orange Pi images are vendor-Ubuntu overlays, not Buildroot. This file exists so the class directory matches the thoxos-images layout. Do not pass it to Buildroot.
+# Kernel config fragment for the vendor 6.6.98 sun60iw2 tree, applied outside Buildroot:
+# ../../kernel/thoxos_opi_zero3w.fragment
+# Class: thoxmini. This fragment is documentation for the class directory only.

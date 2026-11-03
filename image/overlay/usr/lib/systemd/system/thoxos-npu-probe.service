@@ -1,0 +1,11 @@
+# Copyright 2026 THOX.ai LLC
+[Unit]
+Description=ThoxOS NPU probe
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/thoxos/npu-probe
+SuccessExitStatus=3 4
+
+[Install]
+WantedBy=multi-user.target

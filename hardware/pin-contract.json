@@ -1,0 +1,263 @@
+{
+  "schema": "thox.pin-contract/v1",
+  "license": "Apache-2.0",
+  "copyright": "Copyright 2026 THOX.ai LLC",
+  "product": "ThoxOS",
+  "revision": "1.0.0",
+  "compute_module": "Orange Pi Zero 3W",
+  "statement": "Every header assignment in this file is confidence contract, not silkscreen. The official pin-number silkscreen was not available. This file contains no BCM numbers, no Allwinner port.pin numbers, and no 40-pin indexes. Do not layout a harness from it. Directions are from the compute module toward the named device.",
+  "fields": {
+    "name": "Logical net name.",
+    "bus": "UART, I2C, GPIO, USB, HDMI, MIPI-DSI, MIPI-CSI, PCIE, FAN, RF, POWER, SD, STORAGE, BOOT, or none.",
+    "direction": "in, out, inout, power, passive, or nc, as seen from the compute module.",
+    "device": "What the net attaches to.",
+    "confidence": "Always contract in this revision.",
+    "notes": "Constraints and open items. Not a pin number."
+  },
+  "skus": {
+    "thoxmini": {
+      "role": "MagMesh node",
+      "ram_preferred_gb": 8,
+      "ram_floor_gb": 4,
+      "ram_rejected": "1 GB LPDDR4/4X"
+    },
+    "thoxclip": {
+      "role": "clip companion",
+      "ram_preferred_gb": 4,
+      "ram_floor_gb": 2,
+      "ram_rejected": "1 GB LPDDR4/4X"
+    }
+  },
+  "shared_module": {
+    "role": "Orange Pi Zero 3W. Both carriers inherit these. They are module connectors, not 40-pin assignments.",
+    "nets": [
+      {
+        "name": "USB_C_5V",
+        "bus": "POWER",
+        "direction": "power",
+        "device": "USB 2.0 Type-C power port on the module",
+        "confidence": "contract",
+        "notes": "Only legal boot source. 5 V / 3 A. No USB-PD voltage above 5 V. MagStack, Qi, and OTG VBUS are not OR-ed into this net."
+      },
+      {
+        "name": "USB_C_OTG",
+        "bus": "USB",
+        "direction": "inout",
+        "device": "USB 3.1 Type-C OTG on the module",
+        "confidence": "contract",
+        "notes": "DisplayPort Alt Mode 1.4, 4K60 capable. ThoxClip gadget ACM + RNDIS uses this port toward a host phone when docked. DP Alt stays unused because ThoxOS 1.0.0 does not start a display server. Not the boot power input."
+      },
+      {
+        "name": "HDMI_MINI",
+        "bus": "HDMI",
+        "direction": "out",
+        "device": "Mini HDMI 2.0 on the module",
+        "confidence": "contract",
+        "notes": "4K60 capable, dual independent with DP Alt or MIPI-DSI. Display server is off in 1.0.0 (PowerVR compositor deadlock risk). Do not start X11 or Wayland to probe this port."
+      },
+      {
+        "name": "MIPI_DSI",
+        "bus": "MIPI-DSI",
+        "direction": "out",
+        "device": "4-lane MIPI-DSI on the module",
+        "confidence": "contract",
+        "notes": "Optional panel on ThoxMini is not driven in 1.0.0. ThoxClip has no panel. Not a boot dependency."
+      },
+      {
+        "name": "MIPI_CSI0",
+        "bus": "MIPI-CSI",
+        "direction": "in",
+        "device": "4-lane MIPI CSI on the module",
+        "confidence": "contract",
+        "notes": "Unused by both SKUs in 1.0.0. The two CSI connectors are not individually numbered here; CSI0 is the first logical name only."
+      },
+      {
+        "name": "MIPI_CSI1",
+        "bus": "MIPI-CSI",
+        "direction": "in",
+        "device": "4-lane MIPI CSI on the module",
+        "confidence": "contract",
+        "notes": "Unused by both SKUs in 1.0.0. Second logical camera connector. Not a pin index."
+      },
+      {
+        "name": "MODULE_FAN",
+        "bus": "FAN",
+        "direction": "power",
+        "device": "2-pin fan header on the module",
+        "confidence": "contract",
+        "notes": "This is the module 2-pin header, not a 40-pin PWM assignment. The name PWM_FAN is intentionally unused. Control method inside the module is not documented here. Populate before a sustained ThoxMini NPU run. Not a boot dependency. Not the ThoxClip power policy."
+      },
+      {
+        "name": "PCIE_FPC",
+        "bus": "PCIE",
+        "direction": "nc",
+        "device": "PCIe Gen3 x1 FPC on the module",
+        "confidence": "contract",
+        "notes": "Connector exists. Unpopulated on both SKUs in 1.0.0. Do not route a device."
+      },
+      {
+        "name": "IPEX_ANT",
+        "bus": "RF",
+        "direction": "passive",
+        "device": "Module IPEX for Wi-Fi 6 + BT 5.4",
+        "confidence": "contract",
+        "notes": "Press cites Cdtech 20800D8-00. Kernel driver name is UNKNOWN. Attach the pigtail before any radio test. ThoxMini routes the pigtail to the enclosure wall. ThoxClip uses this same radio as the clip link. This net is not the ESP32-C6 antenna."
+      },
+      {
+        "name": "MODULE_UART_DEBUG",
+        "bus": "UART",
+        "direction": "inout",
+        "device": "Module debug UART through-holes",
+        "confidence": "contract",
+        "notes": "Console at 115200. 8N1 and no flow control are the working assumption until a vendor image banner says otherwise. TX and RX are not individually numbered. Do not copy another board's debug pinout into a harness."
+      },
+      {
+        "name": "MODULE_BOOT",
+        "bus": "BOOT",
+        "direction": "in",
+        "device": "BOOT through-holes on the module",
+        "confidence": "contract",
+        "notes": "Pins not numbered. Not used as a carrier strap. Do not flash boot0 from this contact."
+      },
+      {
+        "name": "MODULE_PWR_TP",
+        "bus": "POWER",
+        "direction": "nc",
+        "device": "Power through-holes on the module",
+        "confidence": "contract",
+        "notes": "Pins not numbered. This contract does not claim they are the USB-C 5 V net and does not allow them as a second power inlet."
+      },
+      {
+        "name": "MODULE_SD",
+        "bus": "SD",
+        "direction": "inout",
+        "device": "microSD socket on the module",
+        "confidence": "contract",
+        "notes": "Boot media, up to 128 GB. Vendor partition layout is kept. Do not rewrite the partition table."
+      },
+      {
+        "name": "MODULE_EMMC",
+        "bus": "STORAGE",
+        "direction": "nc",
+        "device": "eMMC footprint on the module",
+        "confidence": "contract",
+        "notes": "Optional 8/16/32/64/128 GB. Default unstuffed. Not a 1.0.0 boot device. A public parameter page has printed 8/16/32 only; confirm the footprint before any stuff."
+      },
+      {
+        "name": "MODULE_UFS",
+        "bus": "STORAGE",
+        "direction": "nc",
+        "device": "UFS footprint on the module",
+        "confidence": "contract",
+        "notes": "Optional 32/64/128. Default unstuffed. Not a 1.0.0 boot device."
+      }
+    ]
+  },
+  "carriers": {
+    "thoxmini": {
+      "role": "MagMesh node",
+      "header": "Logical nets on the module 40-pin, plus one study net that must stay off the 5 V rail. No pin index.",
+      "intentionally_absent": [
+        "GPIO_DOCK_DET is a ThoxClip net; Mini uses GPIO_MAG_PRESENT instead",
+        "PWM_FAN is not assigned; the fan is shared-module MODULE_FAN"
+      ],
+      "nets": [
+        {
+          "name": "UART_ESP_TX",
+          "bus": "UART",
+          "direction": "out",
+          "device": "ESP32-C6 host UART receive pin",
+          "confidence": "contract",
+          "notes": "Module transmits to the ThoxRoute coprocessor. 3.3 V only. Baud is not frozen; do not copy the 115200 debug console onto this link. Land pattern depends on the ESP32-C6 module SKU, which is not frozen. Framing is a software contract outside this file."
+        },
+        {
+          "name": "UART_ESP_RX",
+          "bus": "UART",
+          "direction": "in",
+          "device": "ESP32-C6 host UART transmit pin",
+          "confidence": "contract",
+          "notes": "Module receives from the ThoxRoute coprocessor. 3.3 V only. No flow-control nets are assigned."
+        },
+        {
+          "name": "GPIO_ESP_RST",
+          "bus": "GPIO",
+          "direction": "out",
+          "device": "ESP32-C6 CHIP_PU / EN",
+          "confidence": "contract",
+          "notes": "Chip-side intent, not an Allwinner pin. Espressif EN is active-high: high runs, low holds the chip off, and the pin must not float. While the 40-pin GPIO is high-Z, a carrier pull-down must hold EN low so the coprocessor stays in reset until thoxos-carrier.service drives this net high. Resistor value is not frozen. Confirm EN on the chosen module before layout."
+        },
+        {
+          "name": "GPIO_ESP_BOOT",
+          "bus": "GPIO",
+          "direction": "out",
+          "device": "ESP32-C6 download strap (chip GPIO9)",
+          "confidence": "contract",
+          "notes": "Chip-side intent, not an Allwinner pin. On the ESP32-C6, GPIO9 defaults high and selects flash boot; low at EN release selects download. Product boot must not pull this strap low. The carrier must also not pull chip GPIO8 low (GPIO8 and GPIO9 must not be low together at reset). Bench download may drive this net low and then pulse GPIO_ESP_RST. Sampled when EN rises, so set the strap before releasing reset."
+        },
+        {
+          "name": "I2C_MAG_SCL",
+          "bus": "I2C",
+          "direction": "inout",
+          "device": "MagLink clock",
+          "confidence": "contract",
+          "notes": "Shared by 24C02 at 7-bit 0x50 and INA219 at 7-bit 0x40. Carrier provides pull-ups to 3.3 V. Value is not frozen (do not rely on an undocumented module pull-up). Bus rate is not frozen. The 3.3 V header pin index is not in this contract."
+        },
+        {
+          "name": "I2C_MAG_SDA",
+          "bus": "I2C",
+          "direction": "inout",
+          "device": "MagLink data, 24C02 0x50 and INA219 0x40",
+          "confidence": "contract",
+          "notes": "24C02 is 256 bytes. Do not treat it as a larger EEPROM. Address pins are strapped for 0x50 and 0x40. INA219 shunt value is not frozen. Neither device gates boot."
+        },
+        {
+          "name": "GPIO_MAG_PRESENT",
+          "bus": "GPIO",
+          "direction": "in",
+          "device": "MagStack presence contact",
+          "confidence": "contract",
+          "notes": "Active level is not frozen. Record it from the first marked prototype. Presence must not gate boot. This is not ThoxClip GPIO_DOCK_DET."
+        },
+        {
+          "name": "QI_COIL_STUDY",
+          "bus": "none",
+          "direction": "nc",
+          "device": "Qi coil, mechanical and power study",
+          "confidence": "contract",
+          "notes": "Not a boot source. Open circuit to USB_C_5V and to every PMIC output. Do not OR it into the module 5 V rail. Not a 40-pin assignment."
+        }
+      ]
+    },
+    "thoxclip": {
+      "role": "clip companion",
+      "header": "One logical net on the module 40-pin. No pin index.",
+      "intentionally_absent": [
+        "ESP32-C6",
+        "UART_ESP_TX",
+        "UART_ESP_RX",
+        "GPIO_ESP_RST",
+        "GPIO_ESP_BOOT",
+        "I2C_MAG_SCL",
+        "I2C_MAG_SDA",
+        "24C02",
+        "INA219",
+        "GPIO_MAG_PRESENT",
+        "QI_COIL_STUDY",
+        "N52 magnet array",
+        "Thread, Zigbee, and Matter coprocessor",
+        "hardware fuse or strap that offlines the Cortex-A76 cores",
+        "PWM_FAN; optional airflow uses shared-module MODULE_FAN only"
+      ],
+      "nets": [
+        {
+          "name": "GPIO_DOCK_DET",
+          "bus": "GPIO",
+          "direction": "in",
+          "device": "Clip dock contact",
+          "confidence": "contract",
+          "notes": "Active level is not frozen. Sensor type (switch or hall) is not frozen. Undocked is a normal boot state. Must not gate boot. When docked, userspace may bind ACM + RNDIS on shared-module USB_C_OTG. The dock does not replace USB_C_5V as the boot supply. DP Alt on that OTG port stays unused."
+        }
+      ]
+    }
+  }
+}

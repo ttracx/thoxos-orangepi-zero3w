@@ -1,0 +1,103 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 THOX.ai LLC
+#
+# What ThoxOS references on Orange Pi Zero 3W. This file is not a build
+# input. redistribute is false for every component: no blobs are copied
+# into git and none are shipped from this tree. No blob version or hash
+# is claimed here.
+
+schema: thox.firmware-manifest/v1
+board: orangepi-zero3w
+soc: allwinner-a733
+platform: sun60iw2
+image_base: Orangepizero3w_1.0.2_ubuntu_jammy_server_linux6.6.98
+firmware_repo: https://github.com/orangepi-xunlong/firmware
+toolchain_repo: https://github.com/orangepi-xunlong/toolchain
+toolchain_note: >
+  Reference only. Do not pin a tarball URL from this manifest.
+components:
+  - id: vendor-boot0
+    kind: blob
+    redistribute: false
+    status: pinned
+    source: >
+      Vendor image named in image_base. boot0 stays in that image.
+      Lineage only: https://github.com/orangepi-xunlong/u-boot-orangepi.
+      Not built from this tree.
+    purpose: >
+      Early boot stage supplied by the vendor image. ThoxOS does not
+      replace it.
+    required_for: [thoxmini, thoxclip]
+
+  - id: vendor-wlan-bt
+    kind: blob
+    redistribute: false
+    status: vendor-config
+    source: >
+      Vendor board file orangepizero3w.conf sets
+      MODULES="aic8800_fdrv aic8800_btlpm". The A733 kernel config sets
+      CONFIG_AIC8800_WLAN_SUPPORT=m and CONFIG_AIC8800_BTLPM_SUPPORT=m.
+      Out of tree. Confirm the modules loaded on a serial boot before a
+      carrier spin. DTS node &rfkill (allwinner,sunxi-rfkill). Rails
+      axp8191-bldo5 and axp8191-cldo1 at 1.8V. wlan_regon r_pio PM1,
+      wlan_hostwake PM0, bt_rst_n PM2. Firmware files stay in
+      https://github.com/orangepi-xunlong/firmware and in the vendor
+      image. Press cite for the module package: Cdtech 20800D8-00, IPEX.
+    purpose: >
+      On-SoC Wi-Fi 6 and Bluetooth 5.4. BT 5.4 is the ThoxClip link.
+      ThoxMini Matter/Thread/Zigbee is the carrier ESP32-C6 and is not
+      this component.
+    required_for: [thoxmini, thoxclip]
+
+  - id: vendor-npu-userspace
+    kind: userspace
+    redistribute: false
+    status: pinned
+    source: >
+      Vendor DTS node &npu on the image kernel. Userspace is vendor and
+      is not rehosted in git. Install target, out of band:
+      /usr/lib/thox/npu. No file hash and no library version are pinned.
+    purpose: >
+      Optional NPU userspace (vendor claims up to 3 TOPS INT8, mixed
+      INT8/INT16/FP16/BF16). ThoxOS does not measure TOPS. Probe fails
+      closed until the sysfs/DT node and a library are both present.
+    required_for: []
+
+  - id: vendor-pvr-gpu
+    kind: blob
+    redistribute: false
+    status: do-not-start
+    source: >
+      Imagination BXM-4-64 MC1 closed driver (OpenGL ES 3.2, Vulkan 1.3,
+      OpenCL 3.0). Not shipped here. Community label pvr-a733-armbian
+      reports a live compositor can deadlock the kernel; off-screen
+      OpenCL/Vulkan has been demonstrated in that work, not by ThoxOS
+      on this image.
+    purpose: >
+      Optional and unstarted. No display server and no compositor unit
+      on the ThoxOS image.
+    required_for: []
+
+  - id: e902-arisc
+    kind: blob
+    redistribute: false
+    status: pinned
+    source: >
+      Vendor arisc/remoteproc firmware for the Xuantie E902 (up to
+      200 MHz). No blob is in this tree. Not replaced in ThoxOS 1.0.0.
+    purpose: >
+      Vendor realtime coprocessor, left as shipped. Do not route MagLink
+      or the ESP32 through it.
+    required_for: [thoxmini, thoxclip]
+
+  - id: axp8191-pmic
+    kind: config
+    redistribute: false
+    status: pinned
+    source: >
+      In the vendor kernel. PMIC name AXP8191 is the vendor DTS name.
+      No separate firmware blob.
+    purpose: >
+      Board power, including the 1.8V radio rails axp8191-bldo5 and
+      cldo1.
+    required_for: [thoxmini, thoxclip]

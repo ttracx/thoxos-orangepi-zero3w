@@ -1,0 +1,11 @@
+# Copyright 2026 THOX.ai LLC
+[Unit]
+Description=ThoxOS health gate
+After=thoxos-firstboot.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/thoxos/health.sh
+
+[Install]
+WantedBy=multi-user.target

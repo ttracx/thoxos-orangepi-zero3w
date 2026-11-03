@@ -1,0 +1,10 @@
+{
+  "name": "thoxmini",
+  "device_class": "mesh-node",
+  "cpu": "Allwinner A733 / 2×A76+6×A55 (vendor kernel sun60iw2)",
+  "ram_gb_floor": 4,
+  "storage": "microSD slot (vendor image boot, up to 128GB); optional eMMC or UFS footprints ship unpopulated",
+  "image_system": "vendor-ubuntu-overlay",
+  "ota": "RAUC A/B specified; v1 image keeps vendor single-slot layout until the partition map is measured",
+  "notes": "mesh-node category on Orange Pi Zero 3W. Headless: no display manager. RAM floor 4 GiB. Onboard Wi-Fi 6 and Bluetooth 5.4 stay on the vendor stack. The ESP32 mesh radio is not in the vendor kernel yet and is not probed at boot. NPU up to 3 TOPS is optional and must not fail boot."
+}

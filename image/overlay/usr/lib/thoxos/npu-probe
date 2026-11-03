@@ -1,0 +1,59 @@
+#!/bin/sh
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 THOX.ai LLC
+# Inline NPU probe. Does not depend on a file outside this image tree.
+# Exit 3: no sysfs NPU hint.
+# Exit 4: sysfs hint exists but /usr/lib/thox/npu is missing or empty.
+# Exit 0: both the sysfs hint and a non-empty firmware directory exist.
+# The unit sets SuccessExitStatus=3 4 so a missing NPU does not fail boot.
+
+set -eu
+
+hint=0
+for hint_path in \
+  /sys/class/npu \
+  /sys/class/aipu \
+  /sys/class/vipcore \
+  /sys/devices/virtual/npu
+do
+  if [ -e "$hint_path" ]; then
+    hint=1
+    break
+  fi
+done
+
+if [ "$hint" -eq 0 ] && [ -d /sys/devices/platform ]; then
+  for hint_dev in /sys/devices/platform/*; do
+    if [ ! -e "$hint_dev" ]; then
+      continue
+    fi
+    hint_base=${hint_dev##*/}
+    case "$hint_base" in
+      *npu*|*NPU*|*aipu*|*AIPU*|*vipcore*)
+        hint=1
+        break
+        ;;
+    esac
+  done
+fi
+
+if [ "$hint" -eq 0 ]; then
+  echo "THOXOS npu-probe exit=3 reason=no-sysfs-hint"
+  exit 3
+fi
+
+fw_nonempty=0
+if [ -d /usr/lib/thox/npu ]; then
+  fw_list=$(ls -A /usr/lib/thox/npu 2>/dev/null || true)
+  if [ -n "$fw_list" ]; then
+    fw_nonempty=1
+  fi
+fi
+
+if [ "$fw_nonempty" -eq 0 ]; then
+  echo "THOXOS npu-probe exit=4 reason=firmware-empty"
+  exit 4
+fi
+
+echo "THOXOS npu-probe exit=0"
+exit 0

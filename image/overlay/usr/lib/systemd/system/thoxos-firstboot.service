@@ -1,0 +1,12 @@
+# Copyright 2026 THOX.ai LLC
+[Unit]
+Description=ThoxOS first boot
+ConditionPathExists=!/var/lib/thoxos/firstboot-done
+Before=thoxos-portal.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/thoxos/firstboot.sh
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,6 @@
+thoxos-firstboot.service (enabled: multi-user.target)
+thoxos-portal.service (enabled: multi-user.target)
+thoxos-health.service (enabled: multi-user.target)
+thoxos-carrier.service (enabled: multi-user.target)
+thoxos-gadget.service (enabled: multi-user.target)
+thoxos-npu-probe.service (enabled: multi-user.target)

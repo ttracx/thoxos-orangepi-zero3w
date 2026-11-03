@@ -1,0 +1,122 @@
+#!/bin/sh
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 THOX.ai LLC
+#
+# thoxos-npu-probe — vendor NPU node and out-of-tree userspace check.
+#
+# Exit 0 only when a vendor NPU node is visible and a shared library
+# exists under /usr/lib/thox/npu.
+# Exit 3 when the node is absent.
+# Exit 4 when the node is present and the library is not.
+#
+# Does not load the NPU. Does not measure TOPS.
+
+LIBDIR=/usr/lib/thox/npu
+
+die() {
+    code=$1
+    shift
+    echo "thoxos-npu-probe: $*" >&2
+    exit "$code"
+}
+
+# Basename is the vendor node, not a substring. "uinput" contains "npu"
+# and must not match. Accepted: npu, npu@addr, npu0, npu-0, npu.0.
+is_npu_name() {
+    case "$1" in
+        npu|npu@*|npu.*|npu-*|npu[0-9]*)
+            return 0
+            ;;
+    esac
+    return 1
+}
+
+# Print the first existing NPU node path, or nothing.
+npu_node_path() {
+    p=""
+    base=""
+    for p in \
+        /proc/device-tree/npu \
+        /sys/firmware/devicetree/base/npu \
+        /sys/class/npu \
+        /sys/devices/platform/npu \
+        /sys/bus/platform/drivers/npu \
+        /sys/bus/platform/devices/npu
+    do
+        if [ -e "$p" ]; then
+            printf '%s\n' "$p"
+            return 0
+        fi
+    done
+    for p in \
+        /proc/device-tree/npu@* \
+        /proc/device-tree/*/npu \
+        /proc/device-tree/*/npu@* \
+        /proc/device-tree/*/*/npu \
+        /proc/device-tree/*/*/npu@* \
+        /sys/firmware/devicetree/base/npu@* \
+        /sys/firmware/devicetree/base/*/npu \
+        /sys/firmware/devicetree/base/*/npu@* \
+        /sys/firmware/devicetree/base/*/*/npu \
+        /sys/firmware/devicetree/base/*/*/npu@* \
+        /sys/devices/platform/npu@* \
+        /sys/devices/platform/*/npu \
+        /sys/devices/platform/*/npu@* \
+        /sys/devices/platform/*/*/npu \
+        /sys/devices/platform/*/*/npu@* \
+        /sys/bus/platform/devices/npu@* \
+        /sys/bus/platform/devices/npu[0-9]* \
+        /sys/class/npu/*
+    do
+        if [ -e "$p" ]; then
+            base=${p##*/}
+            if is_npu_name "$base"; then
+                printf '%s\n' "$p"
+                return 0
+            fi
+        fi
+    done
+    if command -v find >/dev/null 2>&1; then
+        # -maxdepth is a GNU/BusyBox find extension, which this Linux
+        # image has. A failed search is treated as "no node".
+        find /sys /proc/device-tree /sys/firmware/devicetree/base \
+            -maxdepth 6 \( -type d -o -type l \) \
+            \( -name npu -o -name 'npu@*' -o -name 'npu.*' \
+               -o -name 'npu-*' -o -name 'npu[0-9]*' \) \
+            -print 2>/dev/null | head -n 1
+    fi
+    return 0
+}
+
+# Print the first shared library path, or nothing.
+npu_lib_path() {
+    f=""
+    if [ ! -d "$LIBDIR" ]; then
+        return 0
+    fi
+    for f in \
+        "$LIBDIR"/*.so \
+        "$LIBDIR"/*.so.* \
+        "$LIBDIR"/*/*.so \
+        "$LIBDIR"/*/*.so.*
+    do
+        if [ -f "$f" ]; then
+            printf '%s\n' "$f"
+            return 0
+        fi
+    done
+    return 0
+}
+
+node=$(npu_node_path | head -n 1)
+if [ -z "$node" ] || [ ! -e "$node" ]; then
+    die 3 "vendor NPU node not found under /sys or /proc/device-tree. Exit 3. TOPS were not measured."
+fi
+
+lib=$(npu_lib_path | head -n 1)
+if [ -z "$lib" ] || [ ! -f "$lib" ]; then
+    die 4 "NPU node ${node} is present but no shared library (*.so or *.so.*) was found in ${LIBDIR}. Exit 4. TOPS were not measured."
+fi
+
+echo "thoxos-npu-probe: NPU node ${node} and library ${lib} are present. TOPS were not measured."
+exit 0

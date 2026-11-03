@@ -1,0 +1,10 @@
+{
+  "name": "thoxclip",
+  "device_class": "clip",
+  "cpu": "Allwinner A733 / 2×A76+6×A55 (vendor kernel sun60iw2)",
+  "ram_gb_floor": 2,
+  "storage": "microSD slot (vendor image boot, up to 128GB); optional eMMC or UFS footprints ship unpopulated",
+  "image_system": "vendor-ubuntu-overlay",
+  "ota": "RAUC A/B specified; v1 image keeps vendor single-slot layout until the partition map is measured",
+  "notes": "clip category on Orange Pi Zero 3W. Headless: no display manager. RAM floor 2 GiB. USB gadget is armed but not configured until the vendor USB gadget DTS is confirmed. Dock GPIO is not claimed because the pin contract is not silkscreen-frozen."
+}

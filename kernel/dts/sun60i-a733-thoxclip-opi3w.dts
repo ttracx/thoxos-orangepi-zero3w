@@ -1,0 +1,37 @@
+// SPDX-License-Identifier: Apache-2.0
+/*
+ * Copyright 2026 THOX.ai LLC
+ *
+ * ThoxClip (clip companion) on Orange Pi Zero 3W / Allwinner A733.
+ * Include is by basename. Not a bootable dtb until copied next to
+ * the vendor board dts. See dts/README.md.
+ *
+ * Only model, compatible, and the carrier node are set here.
+ * &npu and &rfkill stay as the vendor dts left them.
+ *
+ * CPU frequency: the A76 pair is capped by userspace policy.
+ * Do not add an operating-points-v2 node or rewrite a vendor OPP.
+ */
+
+#include "sun60i-a733-orangepi-zero3w.dts"
+
+/ {
+	model = "THOX ThoxClip (Orange Pi Zero 3W)";
+	compatible = "thox,thoxclip-opi3w", "xunlong,orangepi-zero3w", "allwinner,sun60iw2p1";
+
+	/* Not a simple-bus. No gpio-hog. No <&pio N>. No ESP32 on this SKU. */
+	thox-carrier {
+		compatible = "thox,carrier-thoxclip";
+		thox,esp32-required = "no";
+
+		dock-detect {
+			/* Line is assigned in hardware/pin-contract.json. */
+			thox,signal = "dock-present";
+		};
+
+		usb-gadget {
+			thox,logical-bus = "USB-gadget";
+			thox,role = "tether";
+		};
+	};
+};

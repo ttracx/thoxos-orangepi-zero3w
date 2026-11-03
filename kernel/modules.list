@@ -1,0 +1,29 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 THOX.ai LLC
+#
+# Names the ThoxOS image expects to be available on the 6.6.98 kernel.
+# One name per line. Available means built-in or a .ko.
+#
+# Built-in (=y) in thoxos_opi_zero3w.fragment, so no .ko is required:
+#   dm-verity   CONFIG_DM_VERITY
+#   dm-crypt    CONFIG_DM_CRYPT
+#   squashfs    CONFIG_SQUASHFS
+#   overlay     CONFIG_OVERLAY_FS
+# Built-in on the vendor A733 config via CONFIG_USB_CONFIGFS_ACM/RNDIS=y
+# (this fragment keeps those =y). olddefconfig may still emit a .ko
+# if it flips USB_F_* to =m:
+#   usb_f_acm
+#   usb_f_rndis
+# Loadable (=m):
+#   wireguard   CONFIG_WIREGUARD
+#
+# Host CDC-ACM is CONFIG_USB_ACM=m (module cdc-acm). Not this list.
+# Do not add aic8800_* here; those come from the vendor config.
+
+wireguard
+dm-verity
+dm-crypt
+squashfs
+usb_f_acm
+usb_f_rndis
+overlay

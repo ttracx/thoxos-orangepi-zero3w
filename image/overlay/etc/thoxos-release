@@ -1,0 +1,10 @@
+NAME=ThoxOS
+ID=thoxos
+VERSION=1.0.0
+VERSION_ID=1.0.0
+IMAGE_ID=thoxos-opi3w-1.0.0
+BASE=Orangepizero3w_1.0.2_ubuntu_jammy_server_linux6.6.98.7z
+KERNEL=6.6.98 vendor (sun60iw2)
+SKU=unset
+COMPATIBLE=thoxos-opi3w
+HEADLESS=1
