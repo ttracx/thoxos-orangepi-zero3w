@@ -17,13 +17,13 @@
   "skus": {
     "thoxmini": {
       "role": "MagMesh node",
-      "ram_preferred_gb": 8,
+      "ram_in_use_gb": 12,
       "ram_floor_gb": 4,
       "ram_rejected": "1 GB LPDDR4/4X"
     },
     "thoxclip": {
       "role": "clip companion",
-      "ram_preferred_gb": 4,
+      "ram_in_use_gb": 12,
       "ram_floor_gb": 2,
       "ram_rejected": "1 GB LPDDR4/4X"
     }

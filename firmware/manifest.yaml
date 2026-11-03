@@ -95,8 +95,11 @@ components:
     redistribute: false
     status: pinned
     source: >
-      In the vendor kernel. PMIC name AXP8191 is the vendor DTS name.
-      No separate firmware blob.
+      In the vendor kernel. PMIC name AXP8191 is the vendor DTS name
+      for the radio rails (axp8191-bldo5, cldo1). The 12 GB listing
+      photo shows a chip marked AXP318W. Do not rename the DTS from
+      the photo. Read the part on the board in hand before treating
+      them as the same device. No separate firmware blob.
     purpose: >
       Board power, including the 1.8V radio rails axp8191-bldo5 and
       cldo1.

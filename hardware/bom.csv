@@ -1,9 +1,7 @@
 sku,line,part,qty,function,required
-thoxmini,10,Orange Pi Zero 3W 8 GB LPDDR5,1,preferred compute module,yes
-thoxmini,11,Orange Pi Zero 3W 4 GB LPDDR5,1,floor compute module alternate not the preferred buy,no
+thoxmini,10,Orange Pi Zero 3W 12 GB LPDDR5,1,module in use listing color Zero 3W 12GB,yes
 thoxmini,12,Orange Pi Zero 3W 1 GB LPDDR4/4X,0,rejected SKU do not buy,no
-thoxclip,10,Orange Pi Zero 3W 4 GB LPDDR5,1,preferred compute module,yes
-thoxclip,11,Orange Pi Zero 3W 2 GB LPDDR5,1,floor compute module alternate not the preferred buy,no
+thoxclip,10,Orange Pi Zero 3W 12 GB LPDDR5,1,same 12 GB module as ThoxMini,yes
 thoxclip,12,Orange Pi Zero 3W 1 GB LPDDR4/4X,0,rejected SKU do not buy,no
 thoxmini,20,ESP32-C6 module,1,ThoxRoute coprocessor Wi-Fi 6 / BLE 5 / 802.15.4 must expose EN download strap and host UART,yes
 thoxmini,21,IPEX pigtail,1,route module IPEX to enclosure wall,yes
@@ -18,8 +16,8 @@ thoxclip,50,USB-C power cable 5V/3A,1,boot power into module power Type-C,yes
 thoxclip,51,USB-C data cable,1,docked gadget ACM and RNDIS bench cable,yes
 thoxmini,60,microSD up to 128 GB,1,boot media,yes
 thoxclip,60,microSD up to 128 GB,1,boot media,yes
-thoxmini,70,2-pin fan,1,populate module fan header before sustained NPU,no
-thoxclip,70,2-pin fan,1,optional module fan not a power-policy fuse,no
+thoxmini,70,finned heatsink and 2-pin fan from the 12 GB listing kit,1,module fan header the kit photo includes this cooler,yes
+thoxclip,70,finned heatsink and 2-pin fan from the 12 GB listing kit,1,same cooler the listing photo shows with the module,yes
 thoxmini,80,eMMC 8/16/32/64/128 GB,0,optional default unstuffed not a boot device,no
 thoxclip,80,eMMC 8/16/32/64/128 GB,0,optional default unstuffed not a boot device,no
 thoxmini,81,UFS 32/64/128,0,optional default unstuffed not a boot device,no

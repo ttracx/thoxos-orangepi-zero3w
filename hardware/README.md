@@ -21,7 +21,7 @@ SoC Allwinner A733:
 - NPU up to 3 TOPS INT8
 - VPU 8Kp24 decode / 4Kp30 encode
 
-RAM is LPDDR5 up to 16 GB. The 1 GB SKU is LPDDR4/4X. ThoxOS floors are ThoxMini 4 GB and ThoxClip 2 GB. Preferred buys are Mini 8 GB and Clip 4 GB. Do not design around 1 GB. Larger than the preferred size is not the 1.0.0 design center.
+RAM on the board in use is 12 GB LPDDR5 (listing color Zero 3W 12GB). Class floors stay ThoxMini 4 GB and ThoxClip 2 GB. The 1 GB LPDDR4/4X SKU stays rejected. Do not redesign the carriers around a smaller module.
 
 Storage on the module: microSD up to 128 GB; optional eMMC 8/16/32/64/128 GB, default unstuffed; optional UFS 32/64/128, default unstuffed. A public Orange Pi parameter page has printed eMMC as 8/16/32 only. Keep the product list above, and do not stuff any eMMC or UFS until the module vendor confirms the footprint on the board in hand.
 
@@ -100,7 +100,7 @@ ThoxMini (MagMesh node)
   |   Xuantie E902 up to 200 MHz                          |
   |   GPU BXM-4-64 MC1, NPU up to 3 TOPS INT8             |
   |   VPU 8Kp24 decode / 4Kp30 encode                     |
-  | LPDDR5 preferred 8 GB, floor 4 GB, never 1 GB         |
+  | LPDDR5 12 GB on the board in use, floors 4 and 2     |
   | microSD boot; eMMC unstuffed; UFS unstuffed           |
   | Wi-Fi 6 + BT 5.4 -- IPEX -- pigtail -- enclosure wall |
   |   press: Cdtech 20800D8-00; modules aic8800_fdrv / aic8800_btlpm |

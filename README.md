@@ -14,6 +14,7 @@ This tree is the image recipe and the firmware contract. It is not a flashed car
 | Kernel | Linux 6.6.98, branch `orange-pi-6.6-sun60iw2` |
 | Userspace | Ubuntu 22.04 jammy server |
 | SKUs | `thoxmini` (4 GB floor), `thoxclip` (2 GB floor) |
+| Module in use | Orange Pi Zero 3W 12 GB LPDDR5 |
 
 Desktop images are rejected. The closed PowerVR BXM-4-64 driver has deadlocked a live compositor on this SoC. Resolute server 6.6.98 is an allowed alternate base, not the stamp. Kernel 5.15.147 is not the pin.
 

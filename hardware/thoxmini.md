@@ -6,7 +6,7 @@ SPDX-License-Identifier: Apache-2.0
 
 ThoxMini is the Orange Pi Zero 3W plus a carrier. The module is the compute element. The carrier adds the ThoxRoute coprocessor, MagLink, MagStack presence, the magnet array, and a Qi study that is not a supply. Logical nets are in `pin-contract.json`. Confidence is `contract`, not silkscreen. No BCM numbers. No Allwinner port.pin numbers. No 40-pin index.
 
-Preferred RAM is 8 GB LPDDR5. Floor is 4 GB. The 1 GB LPDDR4/4X SKU is rejected. Boot media is microSD. eMMC and UFS stay unstuffed.
+The board in use is the Orange Pi Zero 3W 12 GB LPDDR5. Class floor remains 4 GB. The 1 GB LPDDR4/4X SKU is rejected. Boot media is microSD. eMMC and UFS stay unstuffed.
 
 ## Interface list
 

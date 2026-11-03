@@ -6,7 +6,7 @@ SPDX-License-Identifier: Apache-2.0
 
 ThoxClip uses the same Orange Pi Zero 3W as ThoxMini and a smaller carrier. There is no ESP32-C6. The clip link is the module's own Wi-Fi 6 + BT 5.4. Logical nets are in `pin-contract.json`. The only carrier net on the 40-pin is `GPIO_DOCK_DET`. Confidence is `contract`, not silkscreen. No BCM numbers. No Allwinner port.pin numbers. No 40-pin index.
 
-Preferred RAM is 4 GB LPDDR5. Floor is 2 GB. The 1 GB LPDDR4/4X SKU is rejected. Boot media is microSD. eMMC and UFS stay unstuffed.
+The board in use is the same Orange Pi Zero 3W 12 GB LPDDR5 as ThoxMini. Class floor remains 2 GB. The 1 GB LPDDR4/4X SKU is rejected. Boot media is microSD. eMMC and UFS stay unstuffed.
 
 ## Interface list
 

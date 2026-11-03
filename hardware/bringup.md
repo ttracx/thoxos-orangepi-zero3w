@@ -12,8 +12,8 @@ Enclosure stays off through the thermal step. The old 13.8 mm height target does
 
 Confirm the board is an Orange Pi Zero 3W, not a different Zero.
 
-- ThoxMini preferred 8 GB, floor 4 GB. ThoxClip preferred 4 GB, floor 2 GB.
-- Reject the 1 GB LPDDR4/4X SKU. Do not boot it "just to see."
+- The board on the bench is the Orange Pi Zero 3W 12 GB LPDDR5. The listing photo includes a finned heatsink and a 2-pin fan. Fit that cooler before a sustained run.
+- Class floors stay 4 GB (ThoxMini) and 2 GB (ThoxClip). Reject the 1 GB LPDDR4/4X SKU.
 - eMMC and UFS footprints unstuffed, unless a written deviation names the part and admits it is not the 1.0.0 boot device.
 - PCIe FPC empty.
 - Qi coil, if a Mini mechanical sample has one, has no copper into the 5 V rail.
