@@ -55,7 +55,7 @@ Vendor board device tree, included by the ThoxOS DTS and not copied into this re
 
 ## What is still bench work
 
-- Physical 40-pin silkscreen is not frozen. `hardware/pin-contract.json` is logical nets only.
+- Header pins are taken from Orange Pi Zero 3W User Manual v1.0. The vendor DTS pinctrl groups are still not copied into this tree.
 - Wi-Fi, Bluetooth, NPU, GPU, boot0, and E902 blobs are not redistributed.
 - RAUC A/B is specified and not active until `sfdisk -d` on a real card says the vendor map is safe to replace.
 - Mainline `sun60i-a733` is not this boot path.

@@ -5,7 +5,7 @@
   "product": "ThoxOS",
   "revision": "1.0.0",
   "compute_module": "Orange Pi Zero 3W",
-  "statement": "Every header assignment in this file is confidence contract, not silkscreen. The official pin-number silkscreen was not available. This file contains no BCM numbers, no Allwinner port.pin numbers, and no 40-pin indexes. Do not layout a harness from it. Directions are from the compute module toward the named device.",
+  "statement": "Header pin numbers are from Orange Pi Zero 3W User Manual v1.0 section 3.14 and the vendor gpio readall printed in section 3.15. Ball names are the names that table printed. This file still does not invent a pinctrl group for the vendor DTS. Directions are from the compute module toward the named device.",
   "fields": {
     "name": "Logical net name.",
     "bus": "UART, I2C, GPIO, USB, HDMI, MIPI-DSI, MIPI-CSI, PCIE, FAN, RF, POWER, SD, STORAGE, BOOT, or none.",
@@ -101,7 +101,7 @@
         "direction": "passive",
         "device": "Module IPEX for Wi-Fi 6 + BT 5.4",
         "confidence": "contract",
-        "notes": "Press cites Cdtech 20800D8-00. Kernel driver name is UNKNOWN. Attach the pigtail before any radio test. ThoxMini routes the pigtail to the enclosure wall. ThoxClip uses this same radio as the clip link. This net is not the ESP32-C6 antenna."
+        "notes": "Module marking on the user-manual board photo reads Cdtech 20800D8-00. Kernel driver name is still the vendor modules aic8800_fdrv and aic8800_btlpm. Attach the pigtail before any radio test. ThoxMini routes the pigtail to the enclosure wall. ThoxClip uses this same radio as the clip link. This net is not the ESP32-C6 antenna."
       },
       {
         "name": "MODULE_UART_DEBUG",
@@ -109,7 +109,7 @@
         "direction": "inout",
         "device": "Module debug UART through-holes",
         "confidence": "contract",
-        "notes": "Console at 115200. 8N1 and no flow control are the working assumption until a vendor image banner says otherwise. TX and RX are not individually numbered. Do not copy another board's debug pinout into a harness."
+        "notes": "User manual section 2.11. Header pin 8 is TXD.0 and pin 10 is RXD.0. GND is pin 6. 3.3 V TTL, 115200, no flow control. Cross TX and RX to the USB-TTL. gpio readall shows both already in ALT2. Do not assign the ESP32 to these pins."
       },
       {
         "name": "MODULE_BOOT",
@@ -156,7 +156,7 @@
   "carriers": {
     "thoxmini": {
       "role": "MagMesh node",
-      "header": "Logical nets on the module 40-pin, plus one study net that must stay off the 5 V rail. No pin index.",
+      "header": "40-pin assignments from the Zero 3W user manual. UART2 and I2C0 are enabled in orangepi-config. SPI3, UART6, and I2C2 stay off because they share pins.",
       "intentionally_absent": [
         "GPIO_DOCK_DET is a ThoxClip net; Mini uses GPIO_MAG_PRESENT instead",
         "PWM_FAN is not assigned; the fan is shared-module MODULE_FAN"
@@ -168,7 +168,7 @@
           "direction": "out",
           "device": "ESP32-C6 host UART receive pin",
           "confidence": "contract",
-          "notes": "Module transmits to the ThoxRoute coprocessor. 3.3 V only. Baud is not frozen; do not copy the 115200 debug console onto this link. Land pattern depends on the ESP32-C6 module SKU, which is not frozen. Framing is a software contract outside this file."
+          "notes": "Header pin 11, PB0, UART2 TX. Enable overlay uart2. 3.3 V only. Do not use pin 8, which is the console. Baud is not the console 115200 unless the ESP firmware says so. ESP32 module SKU is still open."
         },
         {
           "name": "UART_ESP_RX",
@@ -176,7 +176,7 @@
           "direction": "in",
           "device": "ESP32-C6 host UART transmit pin",
           "confidence": "contract",
-          "notes": "Module receives from the ThoxRoute coprocessor. 3.3 V only. No flow-control nets are assigned."
+          "notes": "Header pin 13, PB1, UART2 RX. No RTS or CTS."
         },
         {
           "name": "GPIO_ESP_RST",
@@ -184,7 +184,7 @@
           "direction": "out",
           "device": "ESP32-C6 CHIP_PU / EN",
           "confidence": "contract",
-          "notes": "Chip-side intent, not an Allwinner pin. Espressif EN is active-high: high runs, low holds the chip off, and the pin must not float. While the 40-pin GPIO is high-Z, a carrier pull-down must hold EN low so the coprocessor stays in reset until thoxos-carrier.service drives this net high. Resistor value is not frozen. Confirm EN on the chosen module before layout."
+          "notes": "Header pin 15, PE9, GPIO 137. Espressif EN is active-high. A carrier pull-down holds EN low until thoxos-carrier.service drives this pin high. Resistor value is not frozen."
         },
         {
           "name": "GPIO_ESP_BOOT",
@@ -192,7 +192,7 @@
           "direction": "out",
           "device": "ESP32-C6 download strap (chip GPIO9)",
           "confidence": "contract",
-          "notes": "Chip-side intent, not an Allwinner pin. On the ESP32-C6, GPIO9 defaults high and selects flash boot; low at EN release selects download. Product boot must not pull this strap low. The carrier must also not pull chip GPIO8 low (GPIO8 and GPIO9 must not be low together at reset). Bench download may drive this net low and then pulse GPIO_ESP_RST. Sampled when EN rises, so set the strap before releasing reset."
+          "notes": "Header pin 22, PD0, GPIO 96. Held high for flash boot. Low at EN release selects download. Do not pull ESP32 GPIO8 low at the same time."
         },
         {
           "name": "I2C_MAG_SCL",
@@ -200,7 +200,7 @@
           "direction": "inout",
           "device": "MagLink clock",
           "confidence": "contract",
-          "notes": "Shared by 24C02 at 7-bit 0x50 and INA219 at 7-bit 0x40. Carrier provides pull-ups to 3.3 V. Value is not frozen (do not rely on an undocumented module pull-up). Bus rate is not frozen. The 3.3 V header pin index is not in this contract."
+          "notes": "Header pin 5, SCL.0. I2C0. Shared by 24C02 at 0x50 and INA219 at 0x40. Enable overlay i2c0. Carrier pull-ups to pin 1, 3.3 V."
         },
         {
           "name": "I2C_MAG_SDA",
@@ -208,7 +208,7 @@
           "direction": "inout",
           "device": "MagLink data, 24C02 0x50 and INA219 0x40",
           "confidence": "contract",
-          "notes": "24C02 is 256 bytes. Do not treat it as a larger EEPROM. Address pins are strapped for 0x50 and 0x40. INA219 shunt value is not frozen. Neither device gates boot."
+          "notes": "Header pin 3, SDA.0. 24C02 is 256 bytes. INA219 shunt value is not frozen. Neither device gates boot."
         },
         {
           "name": "GPIO_MAG_PRESENT",
@@ -216,7 +216,7 @@
           "direction": "in",
           "device": "MagStack presence contact",
           "confidence": "contract",
-          "notes": "Active level is not frozen. Record it from the first marked prototype. Presence must not gate boot. This is not ThoxClip GPIO_DOCK_DET."
+          "notes": "Header pin 29, PE12, GPIO 140. Active level is still read from the first marked prototype. Presence must not gate boot."
         },
         {
           "name": "QI_COIL_STUDY",
@@ -230,7 +230,7 @@
     },
     "thoxclip": {
       "role": "clip companion",
-      "header": "One logical net on the module 40-pin. No pin index.",
+      "header": "Dock sense on pin 31, PE13. Console stays on pins 8 and 10. No I2C device on this SKU.",
       "intentionally_absent": [
         "ESP32-C6",
         "UART_ESP_TX",
@@ -255,7 +255,7 @@
           "direction": "in",
           "device": "Clip dock contact",
           "confidence": "contract",
-          "notes": "Active level is not frozen. Sensor type (switch or hall) is not frozen. Undocked is a normal boot state. Must not gate boot. When docked, userspace may bind ACM + RNDIS on shared-module USB_C_OTG. The dock does not replace USB_C_5V as the boot supply. DP Alt on that OTG port stays unused."
+          "notes": "Header pin 31, PE13, GPIO 141. Active level is still read from the first marked prototype. Undocked is a normal boot. Must not gate boot."
         }
       ]
     }

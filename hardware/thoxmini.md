@@ -4,7 +4,7 @@ Copyright 2026 THOX.ai LLC
 
 SPDX-License-Identifier: Apache-2.0
 
-ThoxMini is the Orange Pi Zero 3W plus a carrier. The module is the compute element. The carrier adds the ThoxRoute coprocessor, MagLink, MagStack presence, the magnet array, and a Qi study that is not a supply. Logical nets are in `pin-contract.json`. Confidence is `contract`, not silkscreen. No BCM numbers. No Allwinner port.pin numbers. No 40-pin index.
+ThoxMini is the Orange Pi Zero 3W plus a carrier. Header pins below are from the Zero 3W user manual v1.0.
 
 The board in use is the Orange Pi Zero 3W 12 GB LPDDR5. Class floor remains 4 GB. The 1 GB LPDDR4/4X SKU is rejected. Boot media is microSD. eMMC and UFS stay unstuffed.
 
@@ -19,13 +19,13 @@ The board in use is the Orange Pi Zero 3W 12 GB LPDDR5. Class floor remains 4 GB
 | `IPEX_ANT` | Module Wi-Fi 6 + BT 5.4. Pigtail to the enclosure wall. Driver name UNKNOWN. |
 | `MODULE_FAN` | Module 2-pin header, not a 40-pin PWM. Fit before sustained NPU. |
 | `PCIE_FPC` | Unpopulated. |
-| `MODULE_UART_DEBUG` | Bench console, 115200, pins not numbered. |
+| `MODULE_UART_DEBUG` | Header pin 8 TXD.0 and pin 10 RXD.0. GND pin 6. 3.3 V, 115200. |
 | `MODULE_SD` | Boot disk. Do not rewrite the partition table. |
-| `UART_ESP_TX`, `UART_ESP_RX` | Host link to the ESP32-C6. 3.3 V. Baud not frozen. |
-| `GPIO_ESP_RST` | Holds ESP32-C6 EN low until `thoxos-carrier.service`. |
-| `GPIO_ESP_BOOT` | Run strap for product boot. Download only on the bench. |
-| `I2C_MAG_SCL`, `I2C_MAG_SDA` | MagLink. 24C02 at 0x50, INA219 at 0x40. |
-| `GPIO_MAG_PRESENT` | MagStack presence. Level not frozen. Does not gate boot. |
+| `UART_ESP_TX`, `UART_ESP_RX` | Header pin 11 (PB0) and pin 13 (PB1). Overlay `uart2`. 3.3 V. Not pins 8 and 10. |
+| `GPIO_ESP_RST` | Header pin 15, PE9. Holds EN low until `thoxos-carrier.service`. |
+| `GPIO_ESP_BOOT` | Header pin 22, PD0. Held inactive for a normal boot. |
+| `I2C_MAG_SCL`, `I2C_MAG_SDA` | Header pin 5 and pin 3. Overlay `i2c0`. 24C02 at 0x50, INA219 at 0x40. |
+| `GPIO_MAG_PRESENT` | Header pin 29, PE12. Level still read on the first board. Does not gate boot. |
 | `QI_COIL_STUDY` | Mechanical study. Open circuit to 5 V. |
 
 Module SPI and 40-pin PWM have no Mini device. Do not alias the fan as `PWM_FAN`.

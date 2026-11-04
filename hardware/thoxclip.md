@@ -4,7 +4,7 @@ Copyright 2026 THOX.ai LLC
 
 SPDX-License-Identifier: Apache-2.0
 
-ThoxClip uses the same Orange Pi Zero 3W as ThoxMini and a smaller carrier. There is no ESP32-C6. The clip link is the module's own Wi-Fi 6 + BT 5.4. Logical nets are in `pin-contract.json`. The only carrier net on the 40-pin is `GPIO_DOCK_DET`. Confidence is `contract`, not silkscreen. No BCM numbers. No Allwinner port.pin numbers. No 40-pin index.
+ThoxClip uses the same Orange Pi Zero 3W. The only carrier GPIO is header pin 31, PE13, `GPIO_DOCK_DET`.
 
 The board in use is the same Orange Pi Zero 3W 12 GB LPDDR5 as ThoxMini. Class floor remains 2 GB. The 1 GB LPDDR4/4X SKU is rejected. Boot media is microSD. eMMC and UFS stay unstuffed.
 
@@ -14,7 +14,7 @@ The board in use is the same Orange Pi Zero 3W 12 GB LPDDR5 as ThoxMini. Class f
 | --- | --- |
 | `USB_C_5V` | Only boot power. Module USB 2.0 Type-C, 5 V / 3 A. Not the phone dock. |
 | `USB_C_OTG` | USB gadget toward a host phone when docked. ACM + RNDIS. DP Alt unused. |
-| `GPIO_DOCK_DET` | Dock present. Level not frozen. Does not gate boot. |
+| `GPIO_DOCK_DET` | Header pin 31, PE13. Level still read on the first board. Does not gate boot. |
 | `IPEX_ANT` | Clip link antenna for module Wi-Fi 6 + BT 5.4. Driver name UNKNOWN. |
 | `HDMI_MINI`, `MIPI_DSI` | On the module. Not driven. No Clip panel. |
 | `MIPI_CSI0`, `MIPI_CSI1` | Unused. |

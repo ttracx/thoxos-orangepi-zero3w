@@ -6,7 +6,7 @@ SPDX-License-Identifier: Apache-2.0
 
 Two carriers, one compute module. ThoxMini is the MagMesh node. ThoxClip is the clip companion. The compute module is the Orange Pi Zero 3W on both. ThoxOS 1.0.0 does not start a display server.
 
-This directory is a contract, not a schematic and not a silkscreen. The official 40-pin pin-number silkscreen is not in hand. Every header assignment in `pin-contract.json` has confidence `contract`. That means a logical net name only. It is not a pin number, not a BCM number, and not an Allwinner port.pin number. Do not build a 40-pin harness from this tree. Power, ground, and pin index stay a layout hold until a later revision records the physical silkscreen under a new confidence value. This revision uses only `contract`.
+Header pin numbers are from Orange Pi Zero 3W User Manual v1.0, section 3.14, checked against the `gpio readall` table in section 3.15. Ball names are the names that table printed. ThoxOS still does not invent a pinctrl group inside the vendor DTS. SPI3, UART6, and I2C2 share pins 19–26 and stay disabled.
 
 `bom.csv` in this directory is under the same copyright and license. It has no prices.
 
@@ -35,7 +35,7 @@ USB: USB 3.1 Type-C OTG with DP Alt, and a separate USB 2.0 Type-C 5V/3A power p
 
 Expansion on the module: 40-pin header (GPIO, UART, I2C, SPI, PWM), PCIe Gen3 x1 FPC, 2-pin fan, BOOT and power through-holes. SPI and PWM on that 40-pin are module capabilities. No 1.0.0 carrier device is assigned to them. The fan is the module's own 2-pin header. Its contract name is `MODULE_FAN`. The name `PWM_FAN` is not used. If a later silkscreen shows the fan on the 40-pin, revise this contract; do not add `PWM_FAN` beside `MODULE_FAN`.
 
-Module PCB: 65 × 32 × 1.2 mm, about 14 g. That is the bare module, not an enclosed product.
+Module PCB: 65 × 30 mm in the user manual, about 14 g. That is the bare module, not an enclosed product.
 
 A distributor photograph of the module shows an AXP318W. Treat that as a hint, not a schematic. This contract does not document PMIC registers or intermediate rails. The carrier must not inject a second supply onto a PMIC output.
 
