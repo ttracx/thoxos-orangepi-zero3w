@@ -1,5 +1,9 @@
 # ThoxOS for Orange Pi Zero 3W
 
+![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
+![THOX.ai](https://img.shields.io/badge/THOX.ai-LLC-red.svg)
+![Repository](https://img.shields.io/badge/repository-ttracx%2Fthoxos--orangepi--zero3w-0B1220)
+
 Official board support for **ThoxMini** and **ThoxClip** when the compute module is an Orange Pi Zero 3W (Allwinner A733, `sun60iw2`).
 
 This tree is the image recipe and the firmware contract. It is not a flashed card. The vendor root filesystem stays in the Orange Pi 1.0.2 archive. ThoxOS 1.0.0 overlays that root. It does not rebuild boot0 and it does not rewrite the partition table.
@@ -63,3 +67,17 @@ Vendor board device tree, included by the ThoxOS DTS and not copied into this re
 ## License
 
 Apache-2.0. Copyright 2026 THOX.ai LLC. The THOX marks are not covered by the license. Vendor Orange Pi sources remain under their own licenses.
+
+---
+
+## Legal
+
+Copyright (c) 2024-2026 THOX.ai LLC. All rights reserved.
+
+**THOX.ai LLC**
+- CTO: Tommy Xaypanya
+- CEO: Craig Ross
+
+Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for details.
+
+Unauthorized copying, modification, merger, publication, distribution, sublicensing, and/or selling of this software, via any medium, is strictly prohibited without prior written consent from THOX.ai LLC.
